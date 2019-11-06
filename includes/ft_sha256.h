@@ -15,6 +15,6 @@
 
 # include "libft.h"
 
-char *ft_hash_sha256(const char *input, size_t size);
+char *ft_hash_sha256(unsigned char *input, size_t size);
 
 #endif

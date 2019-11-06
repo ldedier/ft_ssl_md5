@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash_sha256.c                                      :+:      :+:    :+:   */
+/*   md5_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 17:11:05 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/05 17:11:05 by ldedier          ###   ########.fr       */
+/*   Created: 2019/11/06 15:54:59 by ldedier           #+#    #+#             */
+/*   Updated: 2019/11/06 15:54:59 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_sha256.h"
+#include "ft_md5.h"
+#include <math.h>
 
-char *ft_hash_sha256(unsigned char *input, size_t size)
+uint32_t	md_f(uint32_t x, uint32_t y, uint32_t z)
 {
-	(void)input;
-	(void)size;
-	return (NULL);
+	return (x & y) | (~x & z);
+}
+
+uint32_t	md_g(uint32_t x, uint32_t y, uint32_t z)
+{
+	return (x & z) | (y & ~z);
+}
+
+uint32_t	md_h(uint32_t x, uint32_t y, uint32_t z)
+{
+	return (x ^ y ^ z);
+}
+
+uint32_t	md_i(uint32_t x, uint32_t y, uint32_t z)
+{
+	return (y ^ (x | ~z));
 }

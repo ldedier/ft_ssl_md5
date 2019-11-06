@@ -14,13 +14,13 @@
 #include <string.h>
 #include <errno.h>
 
-static char	*(*g_hashes[NB_HASHES])(const char *, size_t) = 
+static char	*(*g_hashes[NB_HASHES])(unsigned char *, size_t) = 
 {
 	ft_hash_md5,
 	ft_hash_sha256
 };
 
-char		*hash(char *input, size_t size, int id)
+char		*hash(unsigned char *input, size_t size, int id)
 {
 	return (g_hashes[id](input, size));
 }
@@ -31,9 +31,13 @@ char		*ft_memjoin_free(char *first, size_t fsize,
 	char *res;
 
 	if (!(res = (char *)malloc(fsize + ssize)))
+	{
+		free(first);
 		return (NULL);
+	}
 	ft_memcpy(res, first, fsize);
 	ft_memcpy(res + fsize, second, ssize);
+	free(first);
 	return (res);
 }
 
@@ -91,7 +95,11 @@ char	*get_hash(t_ssl *ssl, char *to_hash,
 
 	if (content == E_HASH_CONTENT_STRING)
 	{
-		input = to_hash;
+		if (!(input = ft_strdup(to_hash)))
+		{
+			ft_dprintf(2, "fatal error\n");
+			return (NULL);
+		}
 		size = ft_strlen(to_hash);
 	}
 	else if (content == E_HASH_CONTENT_FILENAME)
@@ -108,11 +116,8 @@ char	*get_hash(t_ssl *ssl, char *to_hash,
 		}
 	}
 	if (print_input)
-	{
 		write(1, input, size);
-//		ft_printf("\n");
-	}
-	return (hash(input, size, ssl->hash.id));
+	return (hash((unsigned char *)input, size, ssl->hash.id));
 }
 
 void		ft_print_maj(char *str)
@@ -135,13 +140,13 @@ int 		ssl_hash(t_ssl *ssl, char *to_hash,
 	if (!(result = get_hash(ssl, to_hash, content, print_input)))
 		return (1);
 //		result = ft_strdup("fake_hash");
-	if (content != E_HASH_CONTENT_STDIN && ssl->opt_q && !ssl->opt_r)
+	if (content != E_HASH_CONTENT_STDIN && !ssl->opt_q && !ssl->opt_r)
 	{
 		ft_print_maj(ssl->hash.name);
 		if (content == E_HASH_CONTENT_STRING)
-			ft_printf(" (\"%s\") = ", to_hash);
+			ft_printf("(\"%s\") = ", to_hash);
 		else if (content == E_HASH_CONTENT_FILENAME)
-			ft_printf(" (%s) = ", to_hash);
+			ft_printf("(%s)= ", to_hash);
 	}
 	ft_printf("%s", result);
 	if (content != E_HASH_CONTENT_STDIN && !ssl->opt_q  && ssl->opt_r)

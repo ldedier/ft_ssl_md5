@@ -49,7 +49,7 @@ typedef struct		s_ssl
 	int				opt_s : 1;
 }					t_ssl;
 
-typedef char *(t_hash_func)(const char *);
+typedef char *(t_hash_func)(char *);
 
 t_opt_ret		ft_ssl_parse_md5(char ***argv, void *w);
 t_opt_ret		ft_ssl_parse_sha256(char ***argv, void *w);

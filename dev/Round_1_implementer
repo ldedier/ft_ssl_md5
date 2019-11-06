@@ -1,0 +1,16 @@
+	b->a = b->b + rl((b->a + md_f(b->b, b->c, b->d) + buff[0] + g_st[0]), 7);
+	b->d = b->a + rl((b->d + md_f(b->a, b->b, b->c) + buff[1] + g_st[1]), 12);
+	b->c = b->d + rl((b->c + md_f(b->d, b->a, b->b) + buff[2] + g_st[2]), 17);
+	b->b = b->c + rl((b->b + md_f(b->c, b->d, b->a) + buff[3] + g_st[3]), 22);
+	b->a = b->b + rl((b->a + md_f(b->b, b->c, b->d) + buff[4] + g_st[4]), 7);
+	b->d = b->a + rl((b->d + md_f(b->a, b->b, b->c) + buff[5] + g_st[5]), 12);
+	b->c = b->d + rl((b->c + md_f(b->d, b->a, b->b) + buff[6] + g_st[6]), 17);
+	b->b = b->c + rl((b->b + md_f(b->c, b->d, b->a) + buff[7] + g_st[7]), 22);
+	b->a = b->b + rl((b->a + md_f(b->b, b->c, b->d) + buff[8] + g_st[8]), 7);
+	b->d = b->a + rl((b->d + md_f(b->a, b->b, b->c) + buff[9] + g_st[9]), 12);
+	b->c = b->d + rl((b->c + md_f(b->d, b->a, b->b) + buff[10] + g_st[10]), 17);
+	b->b = b->c + rl((b->b + md_f(b->c, b->d, b->a) + buff[11] + g_st[11]), 22);
+	b->a = b->b + rl((b->a + md_f(b->b, b->c, b->d) + buff[12] + g_st[12]), 7);
+	b->d = b->a + rl((b->d + md_f(b->a, b->b, b->c) + buff[13] + g_st[13]), 12);
+	b->c = b->d + rl((b->c + md_f(b->d, b->a, b->b) + buff[14] + g_st[14]), 17);
+	b->b = b->c + rl((b->b + md_f(b->c, b->d, b->a) + buff[15] + g_st[15]), 22);

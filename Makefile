@@ -47,7 +47,7 @@ SRCS		=	main.c \
 				options.c \
 				arguments.c
 				
-SRCS		+=	hash_md5.c
+SRCS		+=	hash_md5.c rounds.c md5_functions.c md_buffers.c
 
 SRCS		+=	hash_sha256.c
 
@@ -62,7 +62,7 @@ OK_COLOR = \x1b[32;01m
 EOC = \033[0m
 
 LFLAGS =	-L $(LIBFTDIR) -lft -Wall -Wextra -Werror
-CFLAGS = $(INC) -Wall -Wextra -Werror#-DPATH=$(PWD) 
+CFLAGS = $(INC) -Wall -Wextra #-Werror#-DPATH=$(PWD) 
 
 ifeq ($(DEBUG), 1)
 	CFLAGS += -fsanitize=address
