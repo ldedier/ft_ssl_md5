@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_md5.h"
-#include <math.h>
+#include "ft_ssl.h"
 
 uint64_t g_st[64] = 
 {
@@ -81,68 +80,6 @@ uint64_t g_st[64] =
 	3951481745
 };
 
-void	debug_input_int(const unsigned char *input, size_t size)
-{
-	size_t i;
-
-	unsigned int *ptr;
-
-	ptr = (unsigned int *)input;
-
-	
-	ft_printf("size: %d\n", size * 8);
-	i = 0;
-	while (i < size / 4)
-	{
-		ft_printf("%d: %u\n", i, ptr[i]);
-		i++;
-	}
-	ft_printf("\n");
-}
-
-void	debug_input(const unsigned char *input, size_t size)
-{
-	size_t i;
-
-	ft_printf("size: %d\n", size * 8);
-	i = 0;
-	while (i < size)
-	{
-		ft_printf("%.8b", input[i]);
-		if (++i < size)
-			ft_printf(", ");
-	}
-	ft_printf("\n");
-}
-
-static	int	pad_input(unsigned char **input, size_t *size)
-{
-	unsigned char	*res;
-	int				congruence;
-	int				to_add;
-	uint64_t		bit_size;
-
-	bit_size = *size * 8;
-	congruence = (*size * sizeof(unsigned char) * 8) % 512;
-	to_add = 448 - congruence;
-	if (to_add <= 0)
-		to_add += 512;
-	to_add /= (sizeof(unsigned char) * 8);
-	if (!(res = (unsigned char *)malloc(sizeof(unsigned char)
-		* (*size + to_add + 8))))
-	{
-		return (1);
-	}
-	ft_memcpy(res, *input, *size);
-	ft_bzero(res + *size, to_add + 8);
-	res[*size] = 0b10000000;
-	ft_memcpy(res + *size + to_add, &bit_size, 8);
-	free(*input);
-	*input = res;
-	*size += to_add + 8;
-	return (0);
-}
-
 char	*ft_hash_md5_message(t_md5 *md5, unsigned char *input, size_t size)
 {
 	size_t	i;
@@ -167,8 +104,6 @@ char	*ft_hash_md5_message(t_md5 *md5, unsigned char *input, size_t size)
 		append_buffs(&md5->buffs);
 		i += 16;
 	}
-//	ft_printf("\nRESULT BUFFERS: \n\n");
-//	print_buffers(&md5->buffs);
 	return (generate_hash_from_buffers(&md5->buffs));
 }
 
@@ -177,10 +112,7 @@ char *ft_hash_md5(unsigned char *input, size_t size)
 	t_md5			md5;
 
 	init_md_buffers(&md5.buffs);
-	if (pad_input(&input, &size))
+	if (pad_input_512(&input, &size))
 		return (NULL);
-//	debug_input_int(input, size);
-//	ft_printf("\n");
-//	print_buffers_int(&md5.buffs);
 	return (ft_hash_md5_message(&md5, input, size));
 }

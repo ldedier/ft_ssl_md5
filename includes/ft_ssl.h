@@ -58,6 +58,12 @@ t_opt_ret		ft_ssl_parse_q(char ***argv, void *w);
 t_opt_ret		ft_ssl_parse_r(char ***argv, void *w);
 t_opt_ret		ft_ssl_parse_s(char ***argv, void *w);
 int				ssl_hash(t_ssl *ssl, char *to_hash,
-					t_hash_content content, int print_input);
-int		parse_args(char **argv, t_ssl *ssl);
+				t_hash_content content, int print_input);
+int				parse_args(char **argv, t_ssl *ssl);
+int				pad_input_512(unsigned char **input, size_t *size);
+void			debug_input(const unsigned char *input, size_t size);
+void			debug_input_int(const unsigned char *input, size_t size);
+
+uint32_t		rl(uint32_t val, int n);
+uint32_t		rr(uint32_t val, int n);
 #endif

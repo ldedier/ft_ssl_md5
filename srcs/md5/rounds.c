@@ -10,13 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_md5.h"
-#include <math.h>
-
-uint32_t rl(uint32_t val, int n)
-{
-	return ((val << n) | (val >> (32 - n)));
-}
+#include "ft_ssl.h"
 
 void	md5_round_1(t_md_buffers *b, uint32_t *buff)
 {

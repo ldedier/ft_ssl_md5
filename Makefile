@@ -45,9 +45,14 @@ SRCS		=	main.c \
 				hash.c \
 				hash_options.c \
 				options.c \
-				arguments.c
+				arguments.c \
+				hash_tools.c
 				
-SRCS		+=	hash_md5.c rounds.c md5_functions.c md_buffers.c
+SRCS		+=	hash_md5.c \
+				rounds.c \
+				md5_functions.c \
+				md_buffers.c \
+				generate_hash_from_buffers.c
 
 SRCS		+=	hash_sha256.c
 

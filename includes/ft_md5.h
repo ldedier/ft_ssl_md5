@@ -51,4 +51,6 @@ uint32_t			md_f(uint32_t x, uint32_t y, uint32_t z);
 uint32_t			md_g(uint32_t x, uint32_t y, uint32_t z);
 uint32_t			md_h(uint32_t x, uint32_t y, uint32_t z);
 uint32_t			md_i(uint32_t x, uint32_t y, uint32_t z);
+
+char				*generate_hash_from_buffers(t_md_buffers *buffers);
 #endif
