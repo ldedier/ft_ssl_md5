@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 12:26:10 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/07 12:26:10 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/07 21:07:59 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ uint32_t rl(uint32_t val, int n)
 
 uint32_t rr(uint32_t val, int n)
 {
-//	return ((val >> n) | (val << (32 - n)));
-	return (val >> n % 32) | (val << (32-n) % 32);
+	return ((val >> n) | (val << (32 - n)));
 }
 
 void	debug_input_int(const unsigned char *input, size_t size)

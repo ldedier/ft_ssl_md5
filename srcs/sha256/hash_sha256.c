@@ -6,13 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:11:05 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/05 17:11:05 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/07 21:50:02 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-uint32_t g_cr[64] = 
+uint32_t g_cr[64] =
 {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1,
 	0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -42,20 +42,18 @@ void	extend_sha_message_schedule_array(uint32_t *w)
 	while (i < 64)
 	{
 		s0 = rr(w[i - 15], 7) ^ rr(w[i - 15], 18) ^ (w[i - 15] >> 3);
-
-		ft_printf("%8x\n", -1);
-		ft_printf("%.8x\n", w[0]);
-		ft_printf("%.8x\n", w[i - 15]);
+//		ft_printf("%.8x\n", w[0]);
+		ft_printf("%.8x\n", w[1]);
+		ft_printf("%032b\n", w[1]);
 	
 		ft_printf("%.8x\n", rr(w[i - 15], 7));
 		ft_printf("%.8x\n", rr(w[i - 15], 18));
 		ft_printf("%.8x\n", w[i - 15] >> 3);
 
-		ft_printf("\t%032b\n", w[i - 15]);
-
-		ft_printf("7:\t%032b\n", rr(w[i - 15], 7));
-		ft_printf("18:\t%032b\n", rr(w[i - 15], 18));
-		ft_printf("3:\t%032b\n", w[i - 15] >> 3);
+		ft_printf("\t\t%032b\n", w[i - 15]);
+		ft_printf("rot 7:\t\t%032b\n", rr(w[i - 15], 7));
+		ft_printf("rot 18:\t\t%032b\n", rr(w[i - 15], 18));
+		ft_printf("shift 3:\t%032b\n", w[i - 15] >> 3);
 	
 		ft_printf("s0:\t%.8x\n", s0);
 		exit(1);
