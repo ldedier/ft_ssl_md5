@@ -37,6 +37,16 @@ typedef struct		s_sha256
 
 }					t_sha256;
 
+typedef struct		s_sha_round
+{
+	uint32_t		s0;
+	uint32_t		s1;
+	uint32_t		ch;
+	uint32_t		maj;
+	uint32_t		temp1;
+	uint32_t		temp2;
+}					t_sha_round;
+
 char *ft_hash_sha256(unsigned char *input, size_t size);
 
 #endif

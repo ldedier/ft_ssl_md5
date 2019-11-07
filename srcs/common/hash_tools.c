@@ -19,7 +19,8 @@ uint32_t rl(uint32_t val, int n)
 
 uint32_t rr(uint32_t val, int n)
 {
-	return ((val >> n) | (val << (32 - n)));
+//	return ((val >> n) | (val << (32 - n)));
+	return (val >> n % 32) | (val << (32-n) % 32);
 }
 
 void	debug_input_int(const unsigned char *input, size_t size)

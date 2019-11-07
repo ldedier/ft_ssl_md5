@@ -27,6 +27,11 @@ uint32_t g_cr[64] =
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
+/*
+ s0 := (w[i-15] rightrotate  7) xor (w[i-15] rightrotate 18) xor (w[i-15] rightshift  3)
+ s1 := (w[i- 2] rightrotate 17) xor (w[i- 2] rightrotate 19) xor (w[i- 2] rightshift 10)
+ w[i] := w[i-16] + s0 + w[i-7] + s1
+*/
 void	extend_sha_message_schedule_array(uint32_t *w)
 {
 	int			i;
@@ -36,12 +41,113 @@ void	extend_sha_message_schedule_array(uint32_t *w)
 	i = 16;
 	while (i < 64)
 	{
-		s0 = w[i - 15];
+		s0 = rr(w[i - 15], 7) ^ rr(w[i - 15], 18) ^ (w[i - 15] >> 3);
+
+		ft_printf("%8x\n", -1);
+		ft_printf("%.8x\n", w[0]);
+		ft_printf("%.8x\n", w[i - 15]);
+	
+		ft_printf("%.8x\n", rr(w[i - 15], 7));
+		ft_printf("%.8x\n", rr(w[i - 15], 18));
+		ft_printf("%.8x\n", w[i - 15] >> 3);
+
+		ft_printf("\t%032b\n", w[i - 15]);
+
+		ft_printf("7:\t%032b\n", rr(w[i - 15], 7));
+		ft_printf("18:\t%032b\n", rr(w[i - 15], 18));
+		ft_printf("3:\t%032b\n", w[i - 15] >> 3);
+	
+		ft_printf("s0:\t%.8x\n", s0);
+		exit(1);
+		s1 = rr(w[i - 2], 17) ^ rr(w[i - 2], 19) ^ (w[i - 2] >> 10);
+		w[i] = w[i - 16] + s0 + w[i - 7] + s1;
+		i++;
+	}
+	i = 0;
+	while (i < 64)
+	{
+		ft_printf("%d: %.8x\n", i, w[i]);
 		i++;
 	}
 }
 
-char    *ft_hash_sha256_message(t_sha256 *sha256, unsigned char *input, size_t size)
+void	initialize_sha_variables(t_sha256 *sha)
+{
+	sha->a = sha->h0;
+	sha->b = sha->h1;
+	sha->c = sha->h2;
+	sha->d = sha->h3;
+	sha->e = sha->h4;
+	sha->f = sha->h5;
+	sha->g = sha->h6;
+	sha->h = sha->h7;
+}
+
+void	append_sha_hashes(t_sha256 *sha)
+{
+	sha->h0 += sha->a;
+	sha->h1 += sha->b;
+	sha->h2 += sha->c;
+	sha->h3 += sha->d;
+	sha->h4 += sha->e;
+	sha->h5 += sha->f;
+	sha->h6 += sha->g;
+	sha->h7 += sha->h;
+}
+
+void	sha256_rounds(t_sha256 *sha, uint32_t *w)
+{
+	t_sha_round	r;
+	int			i;
+
+	i = 0;
+	while (i < 64)
+	{
+		r.s1 = rr(sha->e, 6) ^ rr(sha->e, 11) ^ rr(sha->e, 25);
+		r.ch = (sha->e & sha->f) ^ (~sha->e & sha->g);
+		r.temp1 = sha->h + r.s1 + r.ch + g_cr[i] + w[i];
+		r.s0 = rr(sha->a, 2) ^ rr(sha->a, 13) ^ rr(sha->a, 22);
+		r.maj = (sha->a & sha->b) ^ (sha->a & sha->c) ^ (sha->b & sha->c);
+		r.temp2 = r.s0 + r.maj;
+	
+		sha->h = sha->g;
+		sha->g = sha->f;
+		sha->f = sha->e;
+		sha->e = sha->d + r.temp1;
+		sha->d = sha->c;
+		sha->c = sha->b;
+		sha->b = sha->a;
+		sha->h = r.temp1 + r.temp2;
+		i++;
+	}
+}
+
+void    print_sha(t_sha256 *sha)
+{
+	ft_printf("word h0 = %.8x\n", sha->h0);
+	ft_printf("word h1 = %.8x\n", sha->h1);
+	ft_printf("word h2 = %.8x\n", sha->h2);
+	ft_printf("word h3 = %.8x\n", sha->h3);
+	ft_printf("word h4 = %.8x\n", sha->h4);
+	ft_printf("word h5 = %.8x\n", sha->h5);
+	ft_printf("word h6 = %.8x\n", sha->h6);
+	ft_printf("word h7 = %.8x\n", sha->h7);
+}
+
+void    print_sha_int(t_sha256 *sha)
+{
+	ft_printf("word h0 = %d\n", sha->h0);
+	ft_printf("word h1 = %d\n", sha->h1);
+	ft_printf("word h2 = %d\n", sha->h2);
+	ft_printf("word h3 = %d\n", sha->h3);
+	ft_printf("word h4 = %d\n", sha->h4);
+	ft_printf("word h5 = %d\n", sha->h5);
+	ft_printf("word h6 = %d\n", sha->h6);
+	ft_printf("word h7 = %d\n", sha->h7);
+}
+
+char    *ft_hash_sha256_message(t_sha256 *sha256,
+			unsigned char *input, size_t size)
 {
 	size_t		i;
 	size_t		j;
@@ -61,19 +167,46 @@ char    *ft_hash_sha256_message(t_sha256 *sha256, unsigned char *input, size_t s
 			j++;
 		}
 		extend_sha_message_schedule_array(w);
-//		save_buffs(&md5->buffs);
-//		md5_rounds(&md5->buffs, x_buffer);
-//		append_buffs(&md5->buffs);
+//		print_sha(sha256);
+		initialize_sha_variables(sha256);
+		sha256_rounds(sha256, w);
+		append_sha_hashes(sha256);
 		i += 16;
 	}
+	print_sha(sha256);
 	return (NULL);
 }
 
+void		init_sha224(t_sha256 *sha)
+{
+	sha->h0 = 0xc1059ed8;
+	sha->h1 = 0x367cd507;
+	sha->h2 = 0x3070dd17;
+	sha->h3 = 0xf70e5939;
+	sha->h4 = 0xffc00b31;
+	sha->h5 = 0x68581511;
+	sha->h6 = 0x64f98fa7;
+	sha->h7 = 0xbefa4fa4;
+}
+
+void		init_sha256(t_sha256 *sha)
+{
+	sha->h0 = 0x6a09e667;
+	sha->h1 = 0xbb67ae85;
+	sha->h2 = 0x3c6ef372;
+	sha->h3 = 0xa54ff53a;
+	sha->h4 = 0x510e527f;
+	sha->h5 = 0x9b05688c;
+	sha->h6 = 0x1f83d9ab;
+	sha->h7 = 0x5be0cd19;
+}
 char *ft_hash_sha256(unsigned char *input, size_t size)
 {
 	t_sha256  sha;
 
+	init_sha256(&sha);
 	if (pad_input_512(&input, &size))
 		return (NULL);
+	//debug_input_int(input, size);
 	return (ft_hash_sha256_message(&sha, input, size));
 }

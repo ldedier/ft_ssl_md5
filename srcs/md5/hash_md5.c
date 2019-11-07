@@ -114,5 +114,6 @@ char *ft_hash_md5(unsigned char *input, size_t size)
 	init_md_buffers(&md5.buffs);
 	if (pad_input_512(&input, &size))
 		return (NULL);
+	debug_input_int(input, size);
 	return (ft_hash_md5_message(&md5, input, size));
 }

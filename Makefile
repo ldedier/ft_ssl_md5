@@ -46,7 +46,8 @@ SRCS		=	main.c \
 				hash_options.c \
 				options.c \
 				arguments.c \
-				hash_tools.c
+				hash_tools.c \
+				swap32.c
 				
 SRCS		+=	hash_md5.c \
 				rounds.c \
