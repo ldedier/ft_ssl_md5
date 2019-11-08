@@ -47,6 +47,13 @@ typedef struct		s_sha_round
 	uint32_t		temp2;
 }					t_sha_round;
 
-char *ft_hash_sha256(unsigned char *input, size_t size);
+char				*ft_hash_sha256(unsigned char *input, size_t size);
+char				*ft_hash_sha224(unsigned char *input, size_t size);
+void				init_sha256(t_sha256 *sha);
+void				init_sha224(t_sha256 *sha);
+void				append_sha_hashes(t_sha256 *sha);
+void				initialize_sha_variables(t_sha256 *sha);
+char				*ft_hash_sha256_message(t_sha256 *sha256,
+						unsigned char *input, size_t size, size_t to_print);
 
 #endif

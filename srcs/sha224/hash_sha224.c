@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   hash_sha224.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 19:00:48 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/07 19:00:48 by ldedier          ###   ########.fr       */
+/*   Created: 2019/11/08 02:57:17 by ldedier           #+#    #+#             */
+/*   Updated: 2019/11/08 02:57:17 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <math.h>
+#include "ft_ssl.h"
 
-int main(int argc, char **argv)
+char	*ft_hash_sha224(unsigned char *input, size_t size)
 {
-	(void)argc;
-	(void)argv;
+	t_sha256  sha;
 
-
-	uint32_t a = 5;
-	uint32_t b = UINT_MAX;
-
-	printf("%u\n", (uint32_t)pow(2, 32) - 1);
-	printf("%u\n", UINT_MAX);
-
-	printf("%d\n", b + 1);
-	
-	return (0);
+	init_sha224(&sha);
+	if (pad_input_512(&input, &size, 1))
+		return (NULL);
+	return (ft_hash_sha256_message(&sha, input, size, 7));
 }

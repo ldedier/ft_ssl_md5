@@ -39,6 +39,23 @@ void	debug_input_int(const unsigned char *input, size_t size)
 	ft_printf("\n");
 }
 
+void	debug_input_hex(const unsigned char *input, size_t size)
+{
+	size_t i;
+
+	unsigned int *ptr;
+	ptr = (unsigned int *)input;
+
+	ft_printf("size: %d\n", size * 8);
+	i = 0;
+	while (i < size / 4)
+	{
+		ft_printf("%d: %08x\n", i, ptr[i]);
+		i++;
+	}
+	ft_printf("\n");
+}
+
 void	debug_input(const unsigned char *input, size_t size)
 {
 	size_t i;
@@ -54,7 +71,7 @@ void	debug_input(const unsigned char *input, size_t size)
 	ft_printf("\n");
 }
 
-int		pad_input_512(unsigned char **input, size_t *size)
+int		pad_input_512(unsigned char **input, size_t *size, int should_swap)
 {
 	unsigned char	*res;
 	int				congruence;
@@ -62,6 +79,7 @@ int		pad_input_512(unsigned char **input, size_t *size)
 	uint64_t		bit_size;
 
 	bit_size = *size * 8;
+	swap_bytes(&bit_size, sizeof(uint64_t), should_swap);
 	congruence = (*size * sizeof(unsigned char) * 8) % 512;
 	to_add = 448 - congruence;
 	if (to_add <= 0)

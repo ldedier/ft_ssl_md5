@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		dprint_option(int fd, t_option *option)
+int		dprint_option(int fd, t_option *option, int print_argument)
 {
 	if (option->char_name != -1)
 		ft_dprintf(fd, "-%c", option->char_name);
@@ -22,7 +22,7 @@ int		dprint_option(int fd, t_option *option)
 		ft_dprintf(fd, "%s", option->long_name);
 	else
 		ft_dprintf(fd, "%s", "**unprintable option**");
-	if (option->argument)
+	if (option->argument && print_argument)
 		ft_dprintf(fd, " %s", option->argument);
 	return (1);
 }
@@ -44,7 +44,7 @@ void	print_necessary_opt(t_opt_parser *parser, int j, int i, int necessity)
 				ft_dprintf(2, " { ");
 			else
 				ft_dprintf(2, " , ");
-			dprint_option(2, &parser->options[k]);
+			dprint_option(2, &parser->options[k], 1);
 			first = 0;
 		}
 		k++;
@@ -69,7 +69,7 @@ void	print_fixed_opt(t_opt_parser *parser, int j, int i)
 				ft_dprintf(2, " [ ");
 			else
 				ft_dprintf(2, " , ");
-			dprint_option(2, &parser->options[k]);
+			dprint_option(2, &parser->options[k], 1);
 			first = 0;
 		}
 		k++;
@@ -81,6 +81,6 @@ void	print_fixed_opt(t_opt_parser *parser, int j, int i)
 void	print_optional_opt(t_option *option)
 {
 	ft_dprintf(2, " [");
-	dprint_option(2, option);
+	dprint_option(2, option, 1);
 	ft_dprintf(2, "]");
 }

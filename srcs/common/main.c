@@ -12,12 +12,16 @@
 
 #include "ft_ssl.h"
 
-static t_option g_opts[6] =
+static t_option g_opts[SSL_NB_OPTIONS] =
 {
 	{-1, NULL, "md5", NULL, ft_ssl_parse_md5,
 		"hash following the md5 protocol", 0, 1},
 	{-1, NULL, "sha256", NULL, ft_ssl_parse_sha256,
 		"hash following the sha-256 protocol", 0, 1},
+	{-1, NULL, "sha224", NULL, ft_ssl_parse_sha224,
+		"hash following the sha-224 protocol", 0, 1},
+	{-1, NULL, "sha512", NULL, ft_ssl_parse_sha224,
+		"hash following the sha-512 protocol", 0, 1},
 	{'p', NULL, NULL, NULL, ft_ssl_parse_p,
 		"echo stdin to stdout and append the checksum to stdout", -1, 0},
 	{'q', NULL, NULL, NULL, ft_ssl_parse_q, "quiet mode", -1, -1},

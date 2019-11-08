@@ -31,3 +31,13 @@ t_opt_ret	ft_ssl_parse_sha256(char ***argv, void *s)
 	ssl->hash.name = **argv;
 	return (E_OPT_RET_OK);
 }
+
+t_opt_ret	ft_ssl_parse_sha224(char ***argv, void *s)
+{
+	t_ssl *ssl;
+
+	ssl = (t_ssl *)s;
+	ssl->hash.id = E_HASH_ID_SHA224;
+	ssl->hash.name = **argv;
+	return (E_OPT_RET_OK);
+}

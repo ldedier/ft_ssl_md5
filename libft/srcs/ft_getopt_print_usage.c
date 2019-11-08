@@ -19,7 +19,7 @@ void	print_help(t_opt_parser *parser)
 	i = 0;
 	while (i < parser->nb_options)
 	{
-		dprint_option(2, &parser->options[i]);
+		dprint_option(2, &parser->options[i], 0);
 		ft_dprintf(2, ":\t\t%s\n", parser->options[i].description);
 		i++;
 	}

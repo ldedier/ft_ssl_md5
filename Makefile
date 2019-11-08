@@ -30,6 +30,7 @@ LIBFT_INCLUDES_DIR = includes
 SOURCE_PATHS =	ssl \
 				md5 \
 				sha256 \
+				sha224 \
 				common
 
 SOURCE_FULL_PATHS = $(addprefix $(SRCDIR), $(SOURCE_PATHS))
@@ -55,7 +56,11 @@ SRCS		+=	hash_md5.c \
 				md_buffers.c \
 				generate_hash_from_buffers.c
 
-SRCS		+=	hash_sha256.c
+SRCS		+=	hash_sha256.c \
+				print_sha256.c \
+				sha256_variables.c
+
+SRCS		+=	hash_sha224.c
 
 INCLUDES	=	ft_ssl.h \
 				ft_md5.h \
@@ -100,7 +105,7 @@ $(OBJDIR)%.o: $(SRC_DIR)%.c $(INCLUDES)
 
 clean:
 	@$(MAKE) clean -C $(LIBFTDIR)
-	@$(RM) $(OBJECTS)
+	@$(RM) -rf $(OBJDIR)
 
 fclean: clean
 	@$(MAKE) fclean -C $(LIBFTDIR)

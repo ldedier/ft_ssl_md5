@@ -46,7 +46,7 @@ int		print_necessaries_options(t_opt_parser *parser, int index)
 		{
 			if (j++ == 0)
 				ft_dprintf(2, "\n");
-			dprint_option(2, &parser->options[i]);
+			dprint_option(2, &parser->options[i], 1);
 			ft_dprintf(2, "\n");
 		}
 		i++;

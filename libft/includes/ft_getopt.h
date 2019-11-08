@@ -51,7 +51,7 @@ void				init_opt_parser(t_opt_parser *parser,
 int					ft_getopt(char ***argv, t_opt_parser *parser, void *env);
 int					print_usage(t_opt_parser *parser);
 
-int					dprint_option(int fd, t_option *option);
+int					dprint_option(int fd, t_option *option, int print_argument);
 void				print_fixed_opt(t_opt_parser *parser, int j, int i);
 void				print_necessary_opt(t_opt_parser *parser,
 						int j, int i, int necessity);
