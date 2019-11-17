@@ -22,6 +22,16 @@ uint32_t rr(uint32_t val, int n)
 	return ((val >> n) | (val << (32 - n)));
 }
 
+uint64_t rl64(uint64_t val, int n)
+{
+	return ((val << n) | (val >> (64 - n)));
+}
+
+uint64_t rr64(uint64_t val, int n)
+{
+	return ((val >> n) | (val << (64 - n)));
+}
+
 void	debug_input_int(const unsigned char *input, size_t size)
 {
 	size_t i;
@@ -97,5 +107,34 @@ int		pad_input_512(unsigned char **input, size_t *size, int should_swap)
 	free(*input);
 	*input = res;
 	*size += to_add + 8;
+	return (0);
+}
+
+int		pad_input_1024(unsigned char **input, size_t *size, int should_swap)
+{
+	unsigned char		*res;
+	int					congruence;
+	int					to_add;
+	unsigned __int128	bit_size;
+
+	bit_size = *size * 8;
+	swap_bytes(&bit_size, sizeof(unsigned __int128), should_swap);
+	congruence = (*size * sizeof(unsigned char) * 8) % 1024;
+	to_add = (1024 - 128) - congruence;
+	if (to_add <= 0)
+		to_add += 1024;
+	to_add /= (sizeof(unsigned char) * 8);
+	if (!(res = (unsigned char *)malloc(sizeof(unsigned char)
+					* (*size + to_add + sizeof(bit_size)))))
+	{
+		return (1);
+	}
+	ft_memcpy(res, *input, *size);
+	ft_bzero(res + *size, to_add + sizeof(bit_size));
+	res[*size] = 0b10000000;
+	ft_memcpy(res + *size + to_add, &bit_size, sizeof(bit_size));
+	free(*input);
+	*input = res;
+	*size += to_add + sizeof(bit_size);
 	return (0);
 }

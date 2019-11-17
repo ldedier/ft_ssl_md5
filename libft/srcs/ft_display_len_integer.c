@@ -95,7 +95,7 @@ int		ft_pf_len_o(t_pf pf)
 int		ft_pf_len_x(t_pf pf)
 {
 	int				res;
-	unsigned int	nb;
+	uintmax_t		nb;
 
 	if (pf.var.integer == 0)
 	{

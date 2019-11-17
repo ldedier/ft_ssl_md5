@@ -18,7 +18,9 @@ static char	*(*g_hashes[NB_HASHES])(unsigned char *, size_t) =
 {
 	ft_hash_md5,
 	ft_hash_sha256,
-	ft_hash_sha224
+	ft_hash_sha224,
+	ft_hash_sha384,
+	ft_hash_sha512,
 };
 
 char		*hash(unsigned char *input, size_t size, int id)

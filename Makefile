@@ -31,6 +31,8 @@ SOURCE_PATHS =	ssl \
 				md5 \
 				sha256 \
 				sha224 \
+				sha384 \
+				sha512 \
 				common
 
 SOURCE_FULL_PATHS = $(addprefix $(SRCDIR), $(SOURCE_PATHS))
@@ -60,11 +62,19 @@ SRCS		+=	hash_sha256.c \
 				print_sha256.c \
 				sha256_variables.c
 
+
+SRCS		+=	hash_sha384.c \
+
+SRCS		+=	hash_sha512.c \
+				print_sha512.c \
+				sha512_variables.c
+
 SRCS		+=	hash_sha224.c
 
 INCLUDES	=	ft_ssl.h \
 				ft_md5.h \
 				ft_sha256.h \
+				ft_sha512.h \
 
 OBJECTS			=	$(addprefix $(OBJDIR), $(SRCS:.c=.o))
 INC 			=	-I $(INCLUDESDIR) -I $(LIBFTDIR)/$(LIBFT_INCLUDES_DIR)
