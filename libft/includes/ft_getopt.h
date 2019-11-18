@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 15:04:18 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/04 15:04:18 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/18 19:11:34 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct		s_opt_parser
 
 
 void				init_opt_parser(t_opt_parser *parser,
-						t_option *opts, size_t size);
+						t_option *opts, size_t size, int need_options);
 int					ft_getopt(char ***argv, t_opt_parser *parser, void *env);
 int					print_usage(t_opt_parser *parser);
 

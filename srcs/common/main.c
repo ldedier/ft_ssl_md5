@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:48:52 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/04 14:48:52 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/18 19:11:46 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 
 	(void)argc;
 	init_ssl(&ssl);
-	init_opt_parser(&parser, g_opts, sizeof(g_opts) / sizeof(t_option));
+	init_opt_parser(&parser, g_opts, sizeof(g_opts) / sizeof(t_option), 0);
 	if (ft_getopt(&argv, &parser, &ssl))
 		return (1);
 	return (parse_args(argv, &ssl));

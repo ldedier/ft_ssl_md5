@@ -6,16 +6,18 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:52:49 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/04 14:52:49 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/18 19:11:28 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	init_opt_parser(t_opt_parser *parser, t_option *opts, size_t size)
+void	init_opt_parser(t_opt_parser *parser, t_option *opts,
+	size_t size, int need_opts)
 {
 	parser->options = opts;
 	parser->nb_options = size;
+	parser->need_options = need_opts;
 }
 
 void	print_number(int fd, int number)
@@ -198,7 +200,8 @@ int		ft_getopt(char ***argv, t_opt_parser *parser, void *env)
 		(*argv)++;
 		parsed_options = *argv - argv_save;
 	}
-	if (await_necessary_options(parser, parsed_options - 1))
+	if (parser->need_options
+		&& await_necessary_options(parser, parsed_options - 1))
 	{
 		print_usage(parser);
 		return (E_OPT_RET_ERROR_NO_OPTIONS);
