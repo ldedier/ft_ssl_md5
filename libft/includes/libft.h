@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niragne <niragne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/06/09 17:41:41 by niragne          ###   ########.fr       */
+/*   Created: 2019/08/19 14:22:55 by ldedier           #+#    #+#             */
+/*   Updated: 2019/08/19 15:01:28 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,19 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-# include "ft_printf.h"
 # include "ft_getopt.h"
+# include "ft_printf.h"
 # include "get_next_line.h"
 
 # define MAX_INT 	2147483647
+
+typedef enum		e_opt_enum
+{
+	E_ARG,
+	E_VALUE,
+	E_OPT_SHORT,
+	E_OPT_LONG
+}					t_opt_enum;
 
 typedef struct		s_list
 {
@@ -51,6 +59,36 @@ typedef struct		s_dy_str
 	size_t			current_index;
 	size_t			nb_chars;
 }					t_dy_str;
+
+typedef struct		s_arg_parsed
+{
+	char			short_name;
+	char			*long_name;
+	t_opt_enum		type;
+}					t_arg_parsed;
+
+typedef struct s_arg_parser	t_arg_parser;
+
+typedef struct		s_arg_option
+{
+	char			*long_name;
+	unsigned char	short_name;
+	void			(*f)(t_arg_parser *, void *);
+	char			*description;
+}					t_arg_option;
+
+struct				s_arg_parser
+{
+	char			*prog_name;
+	size_t			nb_args;
+	t_arg_option	*opts;
+	size_t			opts_size;
+	t_list			*parsed;
+	t_arg_parsed	*current;
+	int				parsing;
+	char			*value_ptr;
+	void			(*invalid)(struct s_arg_parser *, void *);
+};
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -132,28 +170,38 @@ int					ft_add_to_list_ptr_back(t_list **list, void *content,
 int					ft_add_to_list_back(t_list **list, void *content,
 		size_t size);
 void				ft_lstdel_ptr(t_list **list);
+int					ft_lstdel_ptr_ret(t_list **list, int ret);
 void				ft_lstdel_value(t_list **list);
 int					ft_delete_node(t_list **prev, t_list **ptr, t_list **vs);
 int					ft_delete_node_ptr(t_list **prv, t_list **ptr, t_list **vs);
 void				ft_lst_mergesort(t_list **list,
 		int (*sort)(void *, void *), int rev);
-void				ft_lstaddsorted(t_list **lst, t_list *toadd, int (*sort)(void *, void *));
-int					ft_add_to_list_sorted(t_list **list, void *content, size_t size, int (*sort)(void *, void *));
-
+void				ft_lstaddsorted(t_list **lst, t_list *toadd,
+							int (*sort)(void *, void *));
+int					ft_add_to_list_sorted(t_list **list, void *content,
+						size_t size, int (*sort)(void *, void *));
 void				ft_sort_tab(int *tab, size_t size);
 t_tree				*ft_tree_new_ptr(void *content);
+t_tree				*ft_tree_new(void *content, size_t size);
 void				ft_infix(t_tree *tree, void (*f)(t_tree *));
 void				ft_prefix(t_tree *tree, void (*f)(t_tree *));
 void				ft_postfix(t_tree *tree, void (*f)(t_tree *));
 int					ft_tree_add_sorted_mul(t_tree **tree, void *content,
-		int (*sort)(void *, void *), int mul);
-int					ft_tree_add_sorted(t_tree **tree, void *content,
-		int (*sort)(void *, void *));
+		long (*sort)(void *, void *), int mul);
+int					ft_tree_add_sorted(t_tree **tree, void *content, void *env,
+		long (*sort)(void *, void *, void *));
 void				ft_tree_del(t_tree **tree, void (*free_func)(void *));
 void				ft_tree_del_value(t_tree **tree);
 void				ft_tree_del_ptr(t_tree **tree);
 int					ft_treelen(t_tree *tree);
 void				*ft_tree_at_infix(t_tree *tree, int index);
+t_tree				*ft_tree_get(t_tree *tree, void *ref,
+						int (*identify)(void*, void *));
+int					ft_add_to_tree_back(t_tree **tree,
+						void *content, size_t size);
+int					ft_tree_add_sorted_value_no_doubles(t_tree **tree,
+						void *content, size_t size,
+							long (*sort)(void *, void *));
 int					get_next_line(const int fd, char **line);
 
 void				ft_free_split(char **split);
@@ -173,7 +221,7 @@ int					ft_isspace(int c);
 int					ft_onesign(int n);
 void				ft_print_line(char *str);
 char				*ft_strjoin_3(char const *s1, char const *s2,
-		char const *s3);
+						char const *s3);
 int					ft_free_turn(void *to_free, int ret);
 int					ft_free_turn_2(void *to_free, void *to_free2, int ret);
 int					ft_free_turn_3(void *to_free, void *to_free2,

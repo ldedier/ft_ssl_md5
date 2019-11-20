@@ -179,8 +179,8 @@ int		ft_getopt(char ***argv, t_opt_parser *parser, void *env)
 	int		parsed_options;
 
 	parsed_options = 0;
-	parser->progname = (*argv)[0];
-	(*argv)++;
+//	parser->progname = (*argv)[0];
+//	(*argv)++;
 	argv_save = *argv;
 	while (**argv)
 	{

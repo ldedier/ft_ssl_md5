@@ -20,7 +20,7 @@ void	ft_empty_buffer(t_pf *pf)
 	display = 0;
 	toprint = ft_get_buffer("", 0, &display, pf);
 	if (pf->sprintf)
-		ft_strcat(&(pf->buffer[ft_add_return(0)]), toprint);
+		ft_strncat(&(pf->buffer[ft_add_return(0)]), toprint, display);
 	else
 		write(pf->fd, toprint, display);
 	ft_add_return(display);
@@ -46,7 +46,10 @@ char	*ft_get_buffer(const void *s, size_t n, int *display, t_pf *pf)
 		{
 			ft_empty_buffer(pf);
 			if (pf->sprintf)
+			{
+				printf("%zu\n", n);
 				ft_strncat(&(pf->buffer[ft_add_return(0)]), s, n);
+			}
 			else
 				write(pf->fd, s, n);
 			ft_add_return(n);

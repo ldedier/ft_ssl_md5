@@ -36,7 +36,7 @@ typedef struct		s_md5
 
 uint64_t			g_st[64];
 
-char				*ft_hash_md5(unsigned char *input, size_t size);
+char				*ft_hash_md5(unsigned char **input, size_t size);
 void				md5_rounds(t_md_buffers *buffer, uint32_t *x_buffer);
 
 char				*generate_hash_from_buffers(t_md_buffers *buffers);

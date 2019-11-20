@@ -6,13 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 20:14:22 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/05 20:14:22 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/19 22:43:11 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-int		parse_args(char **argv, t_ssl *ssl)
+int		parse_args(char **argv, t_opt_parser *parser, t_ssl *ssl, int recursive)
 {
 	char	**argv_save;
 	int		ret;
@@ -28,7 +28,15 @@ int		parse_args(char **argv, t_ssl *ssl)
 		ret |= tmp;
 		argv++;
 	}
-	if (argv == argv_save && !ssl->opt_p && !ssl->opt_s)
-		return (ssl_hash(ssl, *argv, E_HASH_CONTENT_STDIN, 0));
-	return (EXIT_SUCCESS);
+	if (argv == argv_save)
+	{
+		if ((int)ssl->hash.id != -1
+			&& !ssl->opt_p && !ssl->opt_s && !ssl->opt_q && !ssl->opt_r)
+			return (ssl_hash(ssl, NULL, E_HASH_CONTENT_STDIN, 0));
+		else if ((int)ssl->hash.id == -1 && recursive)
+			return (ssl_interactive(ssl, parser));
+		else
+			return (E_EXIT_SUCCESS);
+	}
+	return (E_EXIT_SUCCESS);
 }

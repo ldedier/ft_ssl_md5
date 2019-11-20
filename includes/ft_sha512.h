@@ -45,8 +45,8 @@ typedef struct		s_sha512_round
 	uint64_t		temp2;
 }					t_sha512_round;
 
-char				*ft_hash_sha512(unsigned char *input, size_t size);
-char				*ft_hash_sha384(unsigned char *input, size_t size);
+char				*ft_hash_sha512(unsigned char **input, size_t size);
+char				*ft_hash_sha384(unsigned char **input, size_t size);
 void				init_sha512(t_sha512 *sha);
 void				init_sha384(t_sha512 *sha);
 void				append_sha512_hashes(t_sha512 *sha);

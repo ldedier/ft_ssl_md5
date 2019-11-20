@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flags_x_p.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/05 22:45:41 by ldedier           #+#    #+#             */
-/*   Updated: 2018/05/31 04:02:59 by ldedier          ###   ########.fr       */
+/*   Created: 2019/08/19 14:25:24 by ldedier           #+#    #+#             */
+/*   Updated: 2019/08/19 14:25:26 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "ft_printf.h"
 
 int		ft_pf_p(t_pf *pf, va_list va, char c)

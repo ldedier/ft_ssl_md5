@@ -14,7 +14,7 @@
 #include <string.h>
 #include <errno.h>
 
-static char	*(*g_hashes[NB_HASHES])(unsigned char *, size_t) = 
+static char	*(*g_hashes[NB_HASHES])(unsigned char **, size_t) = 
 {
 	ft_hash_md5,
 	ft_hash_sha256,
@@ -23,7 +23,7 @@ static char	*(*g_hashes[NB_HASHES])(unsigned char *, size_t) =
 	ft_hash_sha512,
 };
 
-char		*hash(unsigned char *input, size_t size, int id)
+char		*hash(unsigned char **input, size_t size, int id)
 {
 	return (g_hashes[id](input, size));
 }
@@ -95,6 +95,7 @@ char	*get_hash(t_ssl *ssl, char *to_hash,
 {
 	char	*input;
 	size_t	size;
+	char	*res;
 
 	if (content == E_HASH_CONTENT_STRING)
 	{
@@ -120,7 +121,9 @@ char	*get_hash(t_ssl *ssl, char *to_hash,
 	}
 	if (print_input)
 		write(1, input, size);
-	return (hash((unsigned char *)input, size, ssl->hash.id));
+	res = hash((unsigned char **)&input, size, ssl->hash.id);
+	free(input);
+	return (res);
 }
 
 void		ft_print_maj(char *str)
@@ -142,7 +145,6 @@ int 		ssl_hash(t_ssl *ssl, char *to_hash,
 
 	if (!(result = get_hash(ssl, to_hash, content, print_input)))
 		return (1);
-//		result = ft_strdup("fake_hash");
 	if (content != E_HASH_CONTENT_STDIN && !ssl->opt_q && !ssl->opt_r)
 	{
 		ft_print_maj(ssl->hash.name);
@@ -152,7 +154,7 @@ int 		ssl_hash(t_ssl *ssl, char *to_hash,
 			ft_printf("(%s)= ", to_hash);
 	}
 	ft_printf("%s", result);
-	if (content != E_HASH_CONTENT_STDIN && !ssl->opt_q  && ssl->opt_r)
+	if (content != E_HASH_CONTENT_STDIN && !ssl->opt_q && ssl->opt_r)
 	{
 		if (content == E_HASH_CONTENT_STRING)
 			ft_printf(" \"%s\"", to_hash);

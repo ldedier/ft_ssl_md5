@@ -140,12 +140,12 @@ char    *ft_hash_sha512_message(t_sha512 *sha512,
 	return (ft_sha512_generate_digest(sha512, to_print));
 }
 
-char *ft_hash_sha512(unsigned char *input, size_t size)
+char *ft_hash_sha512(unsigned char **input, size_t size)
 {
 	t_sha512  sha;
 
 	init_sha512(&sha);
-	if (pad_input_1024(&input, &size, 1))
+	if (pad_input_1024(input, &size, 1))
 		return (NULL);
-	return (ft_hash_sha512_message(&sha, input, size, 8));
+	return (ft_hash_sha512_message(&sha, *input, size, 8));
 }

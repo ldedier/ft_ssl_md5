@@ -20,4 +20,5 @@ void	ft_tree_del_ptr(t_tree **tree)
 		ft_tree_del_ptr(&((*tree)->right));
 		free(*tree);
 	}
+	*tree = NULL;
 }

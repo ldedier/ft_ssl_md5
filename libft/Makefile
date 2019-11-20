@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ldedier <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/11/06 18:20:16 by ldedier           #+#    #+#              #
-#    Updated: 2019/02/27 17:22:06 by ldedier          ###   ########.fr        #
+#    Created: 2019/08/19 16:04:11 by ldedier           #+#    #+#              #
+#    Updated: 2019/08/19 16:04:14 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRCDIR   = srcs
 OBJDIR   = objs
 BINDIR   = .
 INCLUDESDIR = includes
+
+SPEED = -j8
 
 OK_COLOR = \x1b[32;01m
 EOC = \033[0m
@@ -60,23 +62,29 @@ SRCS_NO_PREFIX = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c\
 	   ft_is_in_str.c ft_dy_tab_add_str.c ft_substitute_str.c\
 	   ft_dy_str_add_index.c ft_dy_str_new.c ft_dy_str_realloc.c\
 	   ft_free_turn_dy_str.c ft_dy_str_suppr_index.c ft_substitute_dy_str.c\
-	   ft_strichr_last.c ft_free_turn_n.c
+	   ft_strichr_last.c ft_free_turn_n.c ft_lst_mergesort.c ft_lstadd.c \
+	   ft_lstdel.c ft_lstdel_ptr.c ft_lstdel_value.c ft_lstdelone.c \
+	   ft_lstiter.c ft_lstlength.c ft_lstmap.c ft_lstnew.c ft_lstnew_ptr.c \
+	   ft_lstpop.c ft_lstpop_ptr.c ft_lstpushback.c ft_add_to_list_back.c \
+	   ft_add_to_list_ptr.c ft_add_to_list_ptr_back.c ft_tree_get.c \
+	   ft_add_to_tree_back.c ft_tree_new.c ft_tree_add_sorted_no_doubles.c \
+	   ft_lstdel_ptr_ret.c  get_next_line2.c
 
 SRCS_NO_PREFIX +=	ft_getopt.c ft_getopt_print_usage.c \
-					ft_getopt_print_option.c ft_getopt_match_option.c
-					
+		ft_getopt_print_option.c ft_getopt_match_option.c
 
 SOURCES = $(addprefix $(SRCDIR)/, $(SRCS_NO_PREFIX))
 OBJECTS = $(addprefix $(OBJDIR)/, $(SRCS_NO_PREFIX:%.c=%.o))
 
 INC = -I $(INCLUDESDIR)
-INCLUDES_NO_PREFIX = libft.h ft_printf.h get_next_line.h ft_getopt.h
+INCLUDES_NO_PREFIX = libft.h ft_printf.h get_next_line.h
 INCLUDES = $(addprefix $(INCLUDESDIR)/, $(INCLUDES_NO_PREFIX))
 
 CFLAGS = -Wall -Wextra -Werror $(INC)
 
 ifeq ($(DEBUG), 1)
-	CFLAGS += -DDEBUG
+	CFLAGS += -DDEBUG -fsanitize=address
+	LFLAGS += -fsanitize=address
 	CC += -g3
 endif
 
@@ -86,10 +94,12 @@ $(OBJDIR)/%.o : $(SRCDIR)/%.c $(INCLUDES)
 	@mkdir -p $(OBJDIR)
 	$(CC) -c $< -o $@ $(CFLAGS)
 
+
 $(BINDIR)/$(NAME): $(OBJECTS)
-	@ar rc $@ $^
-	@ranlib $(NAME)
+	ar rc $@ $^
+#	ranlib $(NAME)
 	@echo "$(OK_COLOR)$(NAME) linked with success !$(EOC)"
+
 clean:
 	@rm -f $(OBJECTS)
 	@rm -rf $(OBJDIR)

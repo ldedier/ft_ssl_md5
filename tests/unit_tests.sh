@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-source algorithms.sh
+make -C ..
+
+source diff_script_function.sh
 
 files_dir=files
 tmp_file=dev_random_1000_chars
@@ -12,16 +14,36 @@ nb_passed=0
 
 function testString()
 {
-	./diff_script.sh $1 -s $2
+	diff_script $1 -s ${2}
 	if [ $? == 0 ]
 	then
 		nb_passed=$((nb_passed + 1))
 	fi
 }
 
+strings=(\
+ "hello_world" \
+ "123456789" \
+ "abcdefghijklmnopqrstuvwxyz" \
+ "🐙🐙" \
+ "💯" \
+ "🦀🦀🦀" \
+ "⛄️" \
+ "☀️ ☀️ " \
+ "🥨🧀" \
+ "¨˙∑ˆ¨ƒ˙ˆ¨´∑˜ƒ´ƒ" \
+ "πøπøπøπ∑´ƒπø´∑ƒµµ" \
+ "åœ®´∑\©ƒççç√∂®©®´©®´ø∑ƒ∆´ˆ" \
+ "¨˙ˆ∑œ∂˜∑…ˆø∆∂ø∑´ˆª•ª¶ª•º™ª∞•º£ª•ª•§ºª£¢•§º" \
+ "øƒƒøç˚ç˚ç∑˜√´∆∑ƒ´¨•¨´•∑¨´•ª∞∞∞∞∞∞∞" \
+ "ª∑\•£˙®ƒ˜∆ˆ˜√∆˜ˆø∆†ºª\ºº–ˆ£¢∆©∆®©˜∆ ∆®˜øˆ∆π∆∑π∆π∆´ºª¨º∆©ˆ®ø˜©" \
+ "¨˙∑ˆ¨ƒ˙ˆ¨´∑˜ƒ´ƒ" \
+ "∂∂∂∂∂∂∂∂∂∂∂∂∂∂∂∂øøøøøøøøøøøƒƒƒƒƒ˚˚˚˚˚˚˚˚√√√√√√√" \
+)
+
 function testFile()
 {
-	./diff_script.sh $1 $2
+	diff_script $1 $2
 	if [ $? == 0 ]
 	then
 		nb_passed=$((nb_passed + 1))
@@ -35,6 +57,11 @@ do
 		testFile $hash $file
 		nb_tests=$((nb_tests + 1))
 	done
+	for string in "${strings[@]}"
+	do
+		testString $hash $string
+		nb_tests=$((nb_tests + 1))
+	done
 done
 
 echo
@@ -45,9 +72,9 @@ eoc="\033[39m"
 
 if [ $nb_passed -eq $nb_tests ]
 then
-	echo "${green}All ${nb_tests} tests passed !${eoc}"
+	echo -e "${green}All ${nb_tests} tests passed !${eoc}"
 	exit 0;
 else
-	echo "${red}only ${nb_passed} / ${nb_tests} passed tests !${ec}"
+	echo -e "${red}only ${nb_passed} / ${nb_tests} passed tests !${eoc}"
 	exit 1;
 fi

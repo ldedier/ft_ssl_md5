@@ -107,12 +107,12 @@ char	*ft_hash_md5_message(t_md5 *md5, unsigned char *input, size_t size)
 	return (generate_hash_from_buffers(&md5->buffs));
 }
 
-char *ft_hash_md5(unsigned char *input, size_t size)
+char *ft_hash_md5(unsigned char **input, size_t size)
 {
 	t_md5			md5;
 
 	init_md_buffers(&md5.buffs);
-	if (pad_input_512(&input, &size, 0))
+	if (pad_input_512(input, &size, 0))
 		return (NULL);
-	return (ft_hash_md5_message(&md5, input, size));
+	return (ft_hash_md5_message(&md5, *input, size));
 }

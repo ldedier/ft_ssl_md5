@@ -18,8 +18,9 @@
 
 int		ft_may_free_node(int ret, t_list **gnls, t_gnl *to_del)
 {
-	t_list *prev;
-	t_list *current;
+	t_list	*prev;
+	t_list	*current;
+	t_list	*tmp;
 
 	if (ret == 0)
 	{
@@ -27,6 +28,7 @@ int		ft_may_free_node(int ret, t_list **gnls, t_gnl *to_del)
 		current = *gnls;
 		while (current != NULL)
 		{
+			tmp = current->next;
 			if ((t_gnl *)current->content == to_del)
 			{
 				if (prev == NULL)
@@ -37,8 +39,9 @@ int		ft_may_free_node(int ret, t_list **gnls, t_gnl *to_del)
 				free(to_del);
 				free(current);
 			}
-			prev = current;
-			current = current->next;
+			else
+				prev = current;
+			current = tmp;
 		}
 	}
 	return (ret);

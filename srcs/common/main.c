@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:48:52 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/18 19:11:46 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/19 22:43:11 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,29 @@ void	init_ssl(t_ssl *ssl)
 	ssl->hash.id = -1;
 }
 
-int main(int argc, char **argv)
+int		init_ssl_from_options(char ***argv, t_opt_parser *parser, t_ssl *ssl)
+{
+	init_ssl(ssl);
+	if (ft_getopt(argv, parser, ssl))
+		return (E_EXIT_FAILURE);
+	return (E_EXIT_SUCCESS);
+}
+
+int		ft_ssl(char **argv, t_opt_parser *parser, int recursive)
+{
+	t_ssl	ssl;
+
+	if (init_ssl_from_options(&argv, parser, &ssl))
+		return (E_EXIT_ERROR);
+	return (parse_args(argv, parser, &ssl, recursive));
+}
+
+int		main(int argc, char **argv)
 {
 	t_opt_parser	parser;
-	t_ssl			ssl;
 
 	(void)argc;
-	init_ssl(&ssl);
 	init_opt_parser(&parser, g_opts, sizeof(g_opts) / sizeof(t_option), 0);
-	if (ft_getopt(&argv, &parser, &ssl))
-		return (1);
-	return (parse_args(argv, &ssl));
+	parser.progname = argv[0];
+	return (ft_ssl(argv + 1, &parser, 1) == 0 ? 0 : 1);
 }

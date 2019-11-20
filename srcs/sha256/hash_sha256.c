@@ -119,12 +119,12 @@ char    *ft_hash_sha256_message(t_sha256 *sha256,
 	return (ft_sha_generate_digest(sha256, to_print));
 }
 
-char *ft_hash_sha256(unsigned char *input, size_t size)
+char *ft_hash_sha256(unsigned char **input, size_t size)
 {
 	t_sha256  sha;
 
 	init_sha256(&sha);
-	if (pad_input_512(&input, &size, 1))
+	if (pad_input_512(input, &size, 1))
 		return (NULL);
-	return (ft_hash_sha256_message(&sha, input, size, 8));
+	return (ft_hash_sha256_message(&sha, *input, size, 8));
 }

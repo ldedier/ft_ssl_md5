@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:48:31 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/04 14:48:31 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/19 22:44:06 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 
 # define SSL_NB_OPTIONS	9
+# define SSL_PROMPT		"ft_ssl>"
 
 typedef enum		e_hash_content
 {
@@ -37,6 +38,13 @@ typedef enum		e_hash_id
 	E_HASH_ID_SHA512,
 	NB_HASHES
 }					t_hash_id;
+
+typedef enum		e_exit
+{
+	E_EXIT_SUCCESS,
+	E_EXIT_ERROR,
+	E_EXIT_FAILURE,
+}					t_exit;
 
 typedef struct		s_hash
 {
@@ -67,9 +75,12 @@ t_opt_ret		ft_ssl_parse_p(char ***argv, void *w);
 t_opt_ret		ft_ssl_parse_q(char ***argv, void *w);
 t_opt_ret		ft_ssl_parse_r(char ***argv, void *w);
 t_opt_ret		ft_ssl_parse_s(char ***argv, void *w);
+
+int				ft_ssl(char **argv, t_opt_parser *parser, int recursive);
 int				ssl_hash(t_ssl *ssl, char *to_hash,
 				t_hash_content content, int print_input);
-int				parse_args(char **argv, t_ssl *ssl);
+int				parse_args(char **argv, t_opt_parser *parser,
+					t_ssl *ssl, int recursive);
 int				pad_input_512(unsigned char **input, size_t *size,
 					int should_swap);
 int				pad_input_1024(unsigned char **input, size_t *size,

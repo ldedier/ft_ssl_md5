@@ -6,14 +6,14 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 20:11:10 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/27 20:11:13 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/07/16 09:11:22 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 int		ft_tree_add_sorted_mul(t_tree **tree, void *content,
-			int (*sort)(void*, void *), int mul)
+			long (*sort)(void*, void *), int mul)
 {
 	if (*tree == NULL)
 	{
