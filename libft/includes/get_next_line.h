@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:42:52 by ldedier           #+#    #+#             */
-/*   Updated: 2019/03/14 20:30:40 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:41:58 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "stdio.h"
 # define BUFF_SIZE 4096
 
-typedef struct	s_list	t_list;
+typedef struct s_list	t_list;
 
 typedef struct	s_gnl
 {

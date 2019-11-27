@@ -6,11 +6,23 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/08 15:44:18 by ldedier           #+#    #+#             */
-/*   Updated: 2018/11/15 14:36:24 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 15:37:50 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+void	ft_gnl_free_node(t_list *prev, t_list *current,
+			t_gnl *to_del, t_list **gnls)
+{
+	if (prev == NULL)
+		*gnls = current->next;
+	else
+		prev->next = current->next;
+	free(to_del->whole_buffer);
+	free(to_del);
+	free(current);
+}
 
 /*
 ** free the node if it is not relevant anymore before returning ret
@@ -30,15 +42,7 @@ int		ft_may_free_node(int ret, t_list **gnls, t_gnl *to_del)
 		{
 			tmp = current->next;
 			if ((t_gnl *)current->content == to_del)
-			{
-				if (prev == NULL)
-					*gnls = current->next;
-				else
-					prev->next = current->next;
-				free(to_del->whole_buffer);
-				free(to_del);
-				free(current);
-			}
+				ft_gnl_free_node(prev, current, to_del, gnls);
 			else
 				prev = current;
 			current = tmp;

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:12:44 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/05 17:12:44 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:39:36 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_SHA256_H
 
 # include "libft.h"
-
 
 typedef struct		s_sha256
 {

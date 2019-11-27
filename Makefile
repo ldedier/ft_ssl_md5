@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:46:31 by ldedier           #+#    #+#              #
-#    Updated: 2019/11/04 14:46:31 by ldedier          ###   ########.fr        #
+#    Updated: 2019/11/27 14:29:14 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,11 +46,16 @@ LIBFT = $(LIBFTDIR)/libft.a
 
 SRCS		=	main.c \
 				hash.c \
+				get_hash.c \
 				hash_options.c \
 				options.c \
 				arguments.c \
 				interactive.c \
-				hash_tools.c \
+				get_file_as_string.c \
+				debug.c \
+				padding_512.c \
+				padding_1024.c \
+				rotate.c \
 				swap32.c
 				
 SRCS		+=	hash_md5.c \
@@ -65,12 +70,14 @@ SRCS		+=	hash_sha256.c \
 
 
 SRCS		+=	hash_sha384.c \
+				sha384_variables.c
 
 SRCS		+=	hash_sha512.c \
 				print_sha512.c \
 				sha512_variables.c
 
-SRCS		+=	hash_sha224.c
+SRCS		+=	hash_sha224.c \
+				sha224_variables.c
 
 INCLUDES	=	ft_ssl.h \
 				ft_md5.h \

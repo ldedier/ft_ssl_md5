@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 02:31:52 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/08 02:31:52 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:26:41 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,7 @@ void	append_sha_hashes(t_sha256 *sha)
 	sha->h7 += sha->h;
 }
 
-void		init_sha224(t_sha256 *sha)
-{
-	sha->h0 = 0xc1059ed8;
-	sha->h1 = 0x367cd507;
-	sha->h2 = 0x3070dd17;
-	sha->h3 = 0xf70e5939;
-	sha->h4 = 0xffc00b31;
-	sha->h5 = 0x68581511;
-	sha->h6 = 0x64f98fa7;
-	sha->h7 = 0xbefa4fa4;
-}
-
-void		init_sha256(t_sha256 *sha)
+void	init_sha256(t_sha256 *sha)
 {
 	sha->h0 = 0x6a09e667;
 	sha->h1 = 0xbb67ae85;

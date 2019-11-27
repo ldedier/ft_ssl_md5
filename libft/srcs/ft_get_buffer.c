@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/05 14:55:59 by ldedier           #+#    #+#             */
-/*   Updated: 2018/05/31 18:44:10 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:45:14 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ char	*ft_get_buffer(const void *s, size_t n, int *display, t_pf *pf)
 		{
 			ft_empty_buffer(pf);
 			if (pf->sprintf)
-			{
-				printf("%zu\n", n);
 				ft_strncat(&(pf->buffer[ft_add_return(0)]), s, n);
-			}
 			else
 				write(pf->fd, s, n);
 			ft_add_return(n);

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 15:03:02 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/05 15:03:02 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:46:08 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int		dprint_option(int fd, t_option *option, int print_argument)
 
 void	print_necessary_opt(t_opt_parser *parser, int j, int i, int necessity)
 {
-	size_t k;
-	int first;
+	size_t	k;
+	int		first;
 
 	first = 1;
 	k = j;
@@ -55,8 +55,8 @@ void	print_necessary_opt(t_opt_parser *parser, int j, int i, int necessity)
 
 void	print_fixed_opt(t_opt_parser *parser, int j, int i)
 {
-	size_t k;
-	int first;
+	size_t	k;
+	int		first;
 
 	first = 1;
 	k = j;

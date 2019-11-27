@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/15 16:15:03 by ldedier           #+#    #+#             */
-/*   Updated: 2019/08/15 16:19:09 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 13:59:09 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	swap_bytes(void *to_swap, size_t size, int should_swap)
 {
-	size_t          i;
-	char            tmp;
-	unsigned char   *array;
+	size_t			i;
+	char			tmp;
+	unsigned char	*array;
 
 	if (should_swap)
 	{

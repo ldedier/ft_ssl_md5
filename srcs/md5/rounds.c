@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 15:49:53 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/06 15:49:53 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 13:41:47 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,10 @@ void	md5_round_4(t_md_buffers *b, uint32_t *buff)
 
 void	md5_rounds(t_md_buffers *md_buffs, uint32_t *x_buffer)
 {
-	int		i;
-	static	void (*md5_rounds[MD5_NB_ROUNDS])(t_md_buffers *, uint32_t *) =
-	{
-		md5_round_1,
-		md5_round_2,
-		md5_round_3,
-		md5_round_4
-	};
+	int			i;
+	static void	(*md5_rounds[MD5_NB_ROUNDS])(t_md_buffers *,
+		uint32_t *) = {md5_round_1, md5_round_2, md5_round_3, md5_round_4};
+
 	i = 0;
 	while (i < MD5_NB_ROUNDS)
 	{

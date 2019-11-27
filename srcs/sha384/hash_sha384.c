@@ -6,15 +6,15 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 21:51:55 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/10 21:51:55 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 13:46:23 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-char *ft_hash_sha384(unsigned char **input, size_t size)
+char	*ft_hash_sha384(unsigned char **input, size_t size)
 {
-	t_sha512  sha;
+	t_sha512	sha;
 
 	init_sha384(&sha);
 	if (pad_input_1024(input, &size, 1))

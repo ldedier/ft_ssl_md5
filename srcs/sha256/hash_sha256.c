@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:11:05 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/07 21:50:02 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 13:46:05 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,9 @@ char	*ft_sha_generate_digest(t_sha256 *sha, size_t size)
 	if (size >= 8)
 		ft_sprintf(res + 56, "%08x", sha->h7);
 	return (res);
-
 }
 
-char    *ft_hash_sha256_message(t_sha256 *sha256,
+char	*ft_hash_sha256_message(t_sha256 *sha256,
 			unsigned char *input, size_t size, size_t to_print)
 {
 	size_t		i;
@@ -99,7 +98,6 @@ char    *ft_hash_sha256_message(t_sha256 *sha256,
 
 	nb_words = size / sizeof(uint32_t);
 	words = (uint32_t *)input;
-	
 	i = 0;
 	while (i < nb_words)
 	{
@@ -119,9 +117,9 @@ char    *ft_hash_sha256_message(t_sha256 *sha256,
 	return (ft_sha_generate_digest(sha256, to_print));
 }
 
-char *ft_hash_sha256(unsigned char **input, size_t size)
+char	*ft_hash_sha256(unsigned char **input, size_t size)
 {
-	t_sha256  sha;
+	t_sha256	sha;
 
 	init_sha256(&sha);
 	if (pad_input_512(input, &size, 1))

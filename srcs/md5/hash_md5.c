@@ -6,13 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:10:17 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/05 17:10:17 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 13:34:15 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-uint64_t g_st[64] = 
+uint64_t g_st[64] =
 {
 	3614090360,
 	3905402710,
@@ -82,11 +82,11 @@ uint64_t g_st[64] =
 
 char	*ft_hash_md5_message(t_md5 *md5, unsigned char *input, size_t size)
 {
-	size_t	i;
-	size_t	j;
-	size_t	nb_words;
-	uint32_t *words;
-	uint32_t x_buffer[16];
+	size_t		i;
+	size_t		j;
+	size_t		nb_words;
+	uint32_t	*words;
+	uint32_t	x_buffer[16];
 
 	nb_words = size / sizeof(uint32_t);
 	words = (uint32_t *)input;
@@ -107,7 +107,7 @@ char	*ft_hash_md5_message(t_md5 *md5, unsigned char *input, size_t size)
 	return (generate_hash_from_buffers(&md5->buffs));
 }
 
-char *ft_hash_md5(unsigned char **input, size_t size)
+char	*ft_hash_md5(unsigned char **input, size_t size)
 {
 	t_md5			md5;
 

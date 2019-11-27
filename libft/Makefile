@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/19 16:04:11 by ldedier           #+#    #+#              #
-#    Updated: 2019/08/19 16:04:14 by ldedier          ###   ########.fr        #
+#    Updated: 2019/11/27 15:43:27 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,8 @@ SRCS_NO_PREFIX = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c\
 	   ft_lstdel_ptr_ret.c  get_next_line2.c
 
 SRCS_NO_PREFIX +=	ft_getopt.c ft_getopt_print_usage.c \
-		ft_getopt_print_option.c ft_getopt_match_option.c
+		ft_getopt_print_option.c ft_getopt_match_option.c \
+		ft_getopt_process_arg.c ft_getopt_tools.c
 
 SOURCES = $(addprefix $(SRCDIR)/, $(SRCS_NO_PREFIX))
 OBJECTS = $(addprefix $(OBJDIR)/, $(SRCS_NO_PREFIX:%.c=%.o))

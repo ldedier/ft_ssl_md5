@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:48:31 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/19 22:44:06 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 18:36:48 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef enum		e_exit
 	E_EXIT_SUCCESS,
 	E_EXIT_ERROR,
 	E_EXIT_FAILURE,
+	E_EXIT_NO_EXIT,
 }					t_exit;
 
 typedef struct		s_hash
@@ -63,36 +64,40 @@ typedef struct		s_ssl
 	int				opt_s : 1;
 }					t_ssl;
 
-typedef char *(t_hash_func)(char *);
+typedef char		*(t_hash_func)(char *);
 
-t_opt_ret		ft_ssl_parse_md5(char ***argv, void *w);
-t_opt_ret		ft_ssl_parse_sha256(char ***argv, void *w);
-t_opt_ret		ft_ssl_parse_sha224(char ***argv, void *w);
-t_opt_ret		ft_ssl_parse_sha384(char ***argv, void *w);
-t_opt_ret		ft_ssl_parse_sha512(char ***argv, void *w);
+t_opt_ret			ft_ssl_parse_md5(char ***argv, void *w);
+t_opt_ret			ft_ssl_parse_sha256(char ***argv, void *w);
+t_opt_ret			ft_ssl_parse_sha224(char ***argv, void *w);
+t_opt_ret			ft_ssl_parse_sha384(char ***argv, void *w);
+t_opt_ret			ft_ssl_parse_sha512(char ***argv, void *w);
 
-t_opt_ret		ft_ssl_parse_p(char ***argv, void *w);
-t_opt_ret		ft_ssl_parse_q(char ***argv, void *w);
-t_opt_ret		ft_ssl_parse_r(char ***argv, void *w);
-t_opt_ret		ft_ssl_parse_s(char ***argv, void *w);
+t_opt_ret			ft_ssl_parse_p(char ***argv, void *w);
+t_opt_ret			ft_ssl_parse_q(char ***argv, void *w);
+t_opt_ret			ft_ssl_parse_r(char ***argv, void *w);
+t_opt_ret			ft_ssl_parse_s(char ***argv, void *w);
 
-int				ft_ssl(char **argv, t_opt_parser *parser, int recursive);
-int				ssl_hash(t_ssl *ssl, char *to_hash,
-				t_hash_content content, int print_input);
-int				parse_args(char **argv, t_opt_parser *parser,
-					t_ssl *ssl, int recursive);
-int				pad_input_512(unsigned char **input, size_t *size,
-					int should_swap);
-int				pad_input_1024(unsigned char **input, size_t *size,
-					int should_swap);
-void			debug_input(const unsigned char *input, size_t size);
-void			debug_input_int(const unsigned char *input, size_t size);
-void			debug_input_hex(const unsigned char *input, size_t size);
+int					ft_ssl(char **argv, t_opt_parser *parser, int recursive);
+int					ssl_hash(t_ssl *ssl, char *to_hash,
+					t_hash_content content, int print_input);
+int					parse_args(char **argv, t_opt_parser *parser,
+						t_ssl *ssl, int recursive);
+int					pad_input_512(unsigned char **input, size_t *size,
+						int should_swap);
+int					pad_input_1024(unsigned char **input, size_t *size,
+						int should_swap);
+void				debug_input(const unsigned char *input, size_t size);
+void				debug_input_int(const unsigned char *input, size_t size);
+void				debug_input_hex(const unsigned char *input, size_t size);
 
-uint32_t		rl(uint32_t val, int n);
-uint32_t		rr(uint32_t val, int n);
-uint64_t		rl64(uint64_t val, int n);
-uint64_t		rr64(uint64_t val, int n);
-void			swap_uint32(uint32_t *val);
-void			swap_bytes(void *to_swap, size_t size, int should_swap);
+uint32_t			rl(uint32_t val, int n);
+uint32_t			rr(uint32_t val, int n);
+uint64_t			rl64(uint64_t val, int n);
+uint64_t			rr64(uint64_t val, int n);
+void				swap_uint32(uint32_t *val);
+void				swap_bytes(void *to_swap, size_t size, int should_swap);
+char				*get_file_as_string(int fd, size_t *size);
+char				*get_hash(t_ssl *ssl, char *to_hash,
+						t_hash_content content, int print_input);
+int					ssl_interactive(t_ssl *ssl, t_opt_parser *parser);
 #endif

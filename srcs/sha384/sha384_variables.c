@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash_sha224.c                                      :+:      :+:    :+:   */
+/*   sha384_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 02:57:17 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/27 13:43:12 by ldedier          ###   ########.fr       */
+/*   Created: 2019/11/27 14:28:52 by ldedier           #+#    #+#             */
+/*   Updated: 2019/11/27 14:28:55 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-char	*ft_hash_sha224(unsigned char **input, size_t size)
+void	init_sha384(t_sha512 *sha)
 {
-	t_sha256	sha;
-
-	init_sha224(&sha);
-	if (pad_input_512(input, &size, 1))
-		return (NULL);
-	return (ft_hash_sha256_message(&sha, *input, size, 7));
+	sha->h0 = 0xcbbb9d5dc1059ed8;
+	sha->h1 = 0x629a292a367cd507;
+	sha->h2 = 0x9159015a3070dd17;
+	sha->h3 = 0x152fecd8f70e5939;
+	sha->h4 = 0x67332667ffc00b31;
+	sha->h5 = 0x8eb44a8768581511;
+	sha->h6 = 0xdb0c2e0d64f98fa7;
+	sha->h7 = 0x47b5481dbefa4fa4;
 }

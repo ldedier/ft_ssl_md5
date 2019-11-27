@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 20:59:11 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/19 22:43:11 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:38:49 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,27 @@ int		process_interactive_input(char *input,
 	return (E_EXIT_SUCCESS);
 }
 
+int		ssl_process_interactive_command(t_gnl_info info,
+			t_opt_parser *parser, int *run)
+{
+	int ret;
+
+	if (info.separator == E_SEPARATOR_ZERO)
+		return (ft_free_turn(info.line, E_EXIT_FAILURE));
+	else if (info.separator == E_SEPARATOR_NL)
+	{
+		if ((ret = process_interactive_input(info.line, parser, run)))
+			return (ft_free_turn(info.line, E_EXIT_FAILURE));
+	}
+	else
+	{
+		if ((ret = process_interactive_input(info.line, parser, run)))
+			return (ft_free_turn(info.line, E_EXIT_FAILURE));
+		return (ft_free_turn(info.line, E_EXIT_SUCCESS));
+	}
+	return (E_EXIT_NO_EXIT);
+}
+
 int		ssl_interactive(t_ssl *ssl, t_opt_parser *parser)
 {
 	t_gnl_info	info;
@@ -47,19 +68,9 @@ int		ssl_interactive(t_ssl *ssl, t_opt_parser *parser)
 		ft_printf("%s%s%s ", CYAN, SSL_PROMPT, EOC);
 		if ((ret = get_next_line2(0, &info)) > 0)
 		{
-			if (info.separator == E_SEPARATOR_ZERO)
-				return (ft_free_turn(info.line, E_EXIT_FAILURE));
-			else if (info.separator == E_SEPARATOR_NL)
-			{
-				if ((ret = process_interactive_input(info.line, parser, &run)))
-					return (ft_free_turn(info.line, E_EXIT_FAILURE));
-			}
-			else
-			{
-				if ((ret = process_interactive_input(info.line, parser, &run)))
-					return (ft_free_turn(info.line, E_EXIT_FAILURE));
-				return (ft_free_turn(info.line, E_EXIT_SUCCESS));
-			}
+			if ((ret = ssl_process_interactive_command(info,
+				parser, &run) != E_EXIT_NO_EXIT))
+				return (ret);
 		}
 		else
 		{

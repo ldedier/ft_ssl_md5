@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:48:36 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/04 14:48:36 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:39:24 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void				save_buffs(t_md_buffers *buffers);
 void				init_md_buffers(t_md_buffers *buffers);
 void				print_buffers(t_md_buffers *buffers);
 void				print_buffers_int(t_md_buffers *buffers);
-
 
 uint32_t			md_f(uint32_t x, uint32_t y, uint32_t z);
 uint32_t			md_g(uint32_t x, uint32_t y, uint32_t z);

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 20:13:17 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/05 20:13:17 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/26 10:49:40 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_opt_ret	ft_ssl_parse_p(char ***argv, void *s)
 	(void)argv;
 	ssl = (t_ssl *)s;
 	ssl->opt_p = 1;
-
 	if (ssl_hash(ssl, NULL, E_HASH_CONTENT_STDIN, 1))
 		return (E_OPT_RET_ERROR_FATAL);
 	return (E_OPT_RET_OK);

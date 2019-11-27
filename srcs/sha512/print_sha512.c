@@ -6,13 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 21:17:50 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/10 21:17:50 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/27 13:49:07 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void    print_sha512(t_sha512 *sha)
+void	print_sha512(t_sha512 *sha)
 {
 	ft_printf("word h0 = %.16x\n", sha->h0);
 	ft_printf("word h1 = %.16x\n", sha->h1);
@@ -24,7 +24,7 @@ void    print_sha512(t_sha512 *sha)
 	ft_printf("word h7 = %.16x\n", sha->h7);
 }
 
-void    print_sha512_variables(t_sha512 *sha)
+void	print_sha512_variables(t_sha512 *sha)
 {
 	ft_printf("word a = %.16x\n", sha->a);
 	ft_printf("word b = %.16x\n", sha->b);
@@ -36,7 +36,7 @@ void    print_sha512_variables(t_sha512 *sha)
 	ft_printf("word h = %.16x\n", sha->h);
 }
 
-void    print_sha512_int(t_sha512 *sha)
+void	print_sha512_int(t_sha512 *sha)
 {
 	ft_printf("word h0 = %lld\n", sha->h0);
 	ft_printf("word h1 = %lld\n", sha->h1);
