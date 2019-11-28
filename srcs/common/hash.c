@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 16:44:13 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/27 14:22:26 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/28 12:00:57 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int				ssl_hash(t_ssl *ssl, char *to_hash,
 	{
 		ft_print_maj(ssl->hash.name);
 		if (content == E_HASH_CONTENT_STRING)
-			ft_printf("(\"%s\") = ", to_hash);
+			ft_printf(" (\"%s\") = ", to_hash);
 		else if (content == E_HASH_CONTENT_FILENAME)
-			ft_printf("(%s)= ", to_hash);
+			ft_printf(" (%s) = ", to_hash);
 	}
 	ft_printf("%s", result);
 	if (content != E_HASH_CONTENT_STDIN && !ssl->opt_q && ssl->opt_r)

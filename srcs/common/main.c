@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:48:52 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/19 22:43:11 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/28 11:43:19 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,15 @@ void	init_ssl(t_ssl *ssl)
 
 int		init_ssl_from_options(char ***argv, t_opt_parser *parser, t_ssl *ssl)
 {
+	int ret;
+
 	init_ssl(ssl);
-	if (ft_getopt(argv, parser, ssl))
+	if ((ret = ft_getopt(argv, parser, ssl)))
+	{
+		if (ret == E_OPT_RET_ERROR_FATAL)
+			ft_dprintf(2, "fatal error\n");
 		return (E_EXIT_FAILURE);
+	}
 	return (E_EXIT_SUCCESS);
 }
 

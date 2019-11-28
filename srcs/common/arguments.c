@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 20:14:22 by ldedier           #+#    #+#             */
-/*   Updated: 2019/11/19 22:43:11 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/11/28 11:56:19 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int		parse_args(char **argv, t_opt_parser *parser, t_ssl *ssl, int recursive)
 		else
 			return (E_EXIT_SUCCESS);
 	}
-	return (E_EXIT_SUCCESS);
+	return (ret);
 }
