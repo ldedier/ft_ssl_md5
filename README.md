@@ -21,6 +21,3 @@ ft_ssl clone
 * -q:		quiet mode
 * -r:		reverse output format
 * -s:		print the sum of the given string
-
-* ./ft_ssl hash -s string
-* ./ft_ssl hash filename
