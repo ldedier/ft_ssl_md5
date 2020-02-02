@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:46:31 by ldedier           #+#    #+#              #
-#    Updated: 2019/11/27 14:29:14 by ldedier          ###   ########.fr        #
+#    Updated: 2019/11/28 11:52:24 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,7 @@ OK_COLOR = \x1b[32;01m
 EOC = \033[0m
 
 LFLAGS =	-L $(LIBFTDIR) -lft -Wall -Wextra -Werror
-CFLAGS = $(INC) -Wall -Wextra #-Werror#-DPATH=$(PWD) 
+CFLAGS = $(INC) -Wall -Wextra -Werror
 
 ifeq ($(DEBUG), 1)
 	CFLAGS += -fsanitize=address
