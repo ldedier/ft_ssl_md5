@@ -15,7 +15,12 @@ ft_ssl clone
 
 ## Usage
 
-./ft_ssl  { md5 , sha256 , sha224 , sha384 , sha512 } `[-p]` `[-q]` `[-r]` `[-s string_to_hash]`
+./ft_ssl  { md5 , sha256 , sha224 , sha384 , sha512 } `[-p]` `[-q]` `[-r]` `[-s string_to_hash]` `[filename]`
+
+* -p:		echo stdin to stdout and append the checksum to stdout
+* -q:		quiet mode
+* -r:		reverse output format
+* -s:		print the sum of the given string
 
 * ./ft_ssl hash -s string
 * ./ft_ssl hash filename
